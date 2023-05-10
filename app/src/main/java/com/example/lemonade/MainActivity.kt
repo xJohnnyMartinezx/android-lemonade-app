@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 lemonSize = -1;
                 println("checking when this runs");
             }
-            RESTART -> SELECT;
+            RESTART -> lemonadeState = SELECT;
         }
 
         // TODO: When the image is clicked in the SELECT state, the state should become SQUEEZE
