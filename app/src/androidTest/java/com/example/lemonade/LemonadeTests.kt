@@ -33,9 +33,11 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
+
 class LemonadeTests : BaseTest() {
 
     @Before
+//    @Test
     fun setup() {
         launchActivity<MainActivity>()
     }
