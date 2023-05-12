@@ -17,6 +17,7 @@ package com.example.lemonade
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
@@ -68,11 +69,13 @@ class MainActivity : AppCompatActivity() {
         lemonImage!!.setOnClickListener {
             // TODO: call the method that handles the state when the image is clicked
             clickLemonImage();
+            showSqueezesLeft();
         }
         lemonImage!!.setOnLongClickListener {
             // TODO: replace 'false' with a call to the function that shows the squeeze count
             showSnackbar();
         }
+
     }
 
     /**
@@ -111,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         // TODO: When the image is clicked in the RESTART state the state should become SELECT
 
 
+
         when(lemonadeState){
             SELECT -> { lemonadeState = SQUEEZE;
                 lemonSize = lemonTree.pick();
@@ -132,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                 println("checking when this runs");
             }
             RESTART -> lemonadeState = SELECT;
+
         }
 
         // TODO: lastly, before the function terminates we need to set the view elements so that the
@@ -153,6 +158,7 @@ class MainActivity : AppCompatActivity() {
             }
             SQUEEZE -> {textAction.setText(R.string.lemon_squeeze)
                 lemonImage?.setImageResource(R.drawable.lemon_squeeze);
+
             }
             DRINK -> {textAction.setText(R.string.lemon_drink)
                 lemonImage?.setImageResource(R.drawable.lemon_drink);
@@ -184,6 +190,18 @@ class MainActivity : AppCompatActivity() {
      *
      * Long clicking the lemon image will show how many times the lemon has been squeezed.
      */
+    private fun showSqueezesLeft(): Boolean {
+        val squeezeText: TextView = findViewById(R.id.num_of_squeezes_left);
+        if (lemonadeState != SQUEEZE) {
+            squeezeText.visibility = View.INVISIBLE;
+            return false
+        }
+        val str = String.format("You still have $lemonSize squeezes left, keep squeezing!")
+        squeezeText.text = str;
+        squeezeText.visibility = View.VISIBLE;
+        return true
+    }
+
     private fun showSnackbar(): Boolean {
         if (lemonadeState != SQUEEZE) {
             return false
